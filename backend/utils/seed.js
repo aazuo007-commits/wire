@@ -4,6 +4,7 @@ import Admin from "../models/Admin.js";
 import Logo from "../models/Logo.js";
 import Service from "../models/Service.js";
 import Technology from "../models/Technology.js";
+import Career from "../models/Career.js";
 
 dotenv.config();
 
@@ -76,6 +77,46 @@ const run = async () => {
       { name: "MongoDB", category: "Database", logoUrl: "https://placehold.co/80x80?text=Mongo", order: 3 },
     ]);
     console.log("Sample technologies created.");
+  }
+
+  // 5. Sample career postings
+  if ((await Career.countDocuments()) === 0) {
+    await Career.insertMany([
+      {
+        title: "Frontend Developer (React)",
+        slug: "frontend-developer-react",
+        department: "Engineering",
+        location: "Remote / Noida",
+        jobType: "Full-time",
+        experience: "2-4 years",
+        description: "We're looking for a Frontend Developer to build and maintain client-facing React applications.",
+        requirements: "Strong React & JavaScript fundamentals, experience with REST APIs, good eye for UI detail.",
+        order: 1,
+      },
+      {
+        title: "Backend Developer (Node.js)",
+        slug: "backend-developer-nodejs",
+        department: "Engineering",
+        location: "Remote / Noida",
+        jobType: "Full-time",
+        experience: "2-5 years",
+        description: "Join our backend team to design and build scalable APIs and services powering our products.",
+        requirements: "Node.js, Express, MongoDB, understanding of REST API design and authentication.",
+        order: 2,
+      },
+      {
+        title: "UI/UX Designer",
+        slug: "ui-ux-designer",
+        department: "Design",
+        location: "Remote / Noida",
+        jobType: "Full-time",
+        experience: "1-3 years",
+        description: "Design intuitive, polished interfaces for our web and mobile products, working closely with engineering.",
+        requirements: "Figma proficiency, a strong portfolio, understanding of responsive design principles.",
+        order: 3,
+      },
+    ]);
+    console.log("Sample career postings created.");
   }
 
   console.log("Seeding complete.");

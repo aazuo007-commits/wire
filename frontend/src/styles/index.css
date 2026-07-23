@@ -159,11 +159,33 @@ img { max-width: 100%; display: block; }
 .page-header h1, .page-header p { color: #fff; }
 
 /* Careers */
+.view-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+.job-card { display: block; }
+.job-exp { font-size: 14px; }
 .job-list { display: flex; flex-direction: column; gap: 16px; }
 .job-item {
   display: flex; align-items: center; justify-content: space-between; padding: 22px;
   border: 1px solid var(--border); border-radius: var(--radius);
 }
+
+/* Career detail + apply form */
+.career-detail-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+.apply-form-card { background: var(--bg-alt); border-radius: var(--radius); padding: 26px; }
+.apply-form { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+.apply-form .admin-form-field label { color: var(--navy); }
+.apply-form input[type="text"],
+.apply-form input[type="email"],
+.apply-form input:not([type]),
+.apply-form textarea {
+  padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; width: 100%;
+}
+@media (max-width: 860px) { .career-detail-grid { grid-template-columns: 1fr; } }
+
+/* Admin applications */
+.applications-toolbar { display: flex; gap: 14px; margin: 16px 0 20px; flex-wrap: wrap; }
+.applications-search { flex: 1; min-width: 240px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; }
+.applications-toolbar select { padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; }
+.application-detail-row { background: var(--bg-alt); font-size: 14px; color: var(--text); }
 
 /* Contact */
 .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }

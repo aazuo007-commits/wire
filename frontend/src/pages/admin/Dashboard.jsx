@@ -10,6 +10,7 @@ const resources = [
   { key: "industries", label: "Industries" },
   { key: "technologies", label: "Technology" },
   { key: "partners", label: "Partners" },
+  { key: "careers", label: "Careers" },
 ];
 
 export default function Dashboard() {
@@ -22,6 +23,11 @@ export default function Dashboard() {
         .then((res) => setCounts((c) => ({ ...c, [r.key]: res.data.data.length })))
         .catch(() => setCounts((c) => ({ ...c, [r.key]: "-" })));
     });
+
+    api
+      .get("/applications")
+      .then((res) => setCounts((c) => ({ ...c, applications: res.data.data.length })))
+      .catch(() => setCounts((c) => ({ ...c, applications: "-" })));
   }, []);
 
   return (
@@ -35,6 +41,10 @@ export default function Dashboard() {
             <p>{r.label}</p>
           </div>
         ))}
+        <div className="dash-card">
+          <h3>{counts.applications ?? "…"}</h3>
+          <p>Job Applications</p>
+        </div>
       </div>
     </div>
   );

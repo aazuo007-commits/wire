@@ -16,6 +16,8 @@ import partnerRoutes from "./routes/partners.js";
 import contactRoutes from "./routes/contact.js";
 import templateRoutes from "./routes/templates.js";
 import settingsRoutes from "./routes/settings.js";
+import careerRoutes from "./routes/careers.js";
+import applicationRoutes from "./routes/applications.js";
 
 dotenv.config();
 connectDB();
@@ -44,6 +46,8 @@ app.use("/api/partners", partnerRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/templates", templateRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/careers", careerRoutes);
+app.use("/api/applications", applicationRoutes);
 
 // 404 handler
 app.use((req, res) => res.status(404).json({ success: false, message: "Route not found" }));

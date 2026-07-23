@@ -11,6 +11,7 @@ import ServiceDetail from "./pages/ServiceDetail.jsx";
 import Projects from "./pages/Projects.jsx";
 import Blog from "./pages/Blog.jsx";
 import Careers from "./pages/Careers.jsx";
+import CareerDetail from "./pages/CareerDetail.jsx";
 import Contact from "./pages/Contact.jsx";
 
 import Login from "./pages/admin/Login.jsx";
@@ -23,6 +24,8 @@ import Expertise from "./pages/admin/Expertise.jsx";
 import Industries from "./pages/admin/Industries.jsx";
 import Technologies from "./pages/admin/Technologies.jsx";
 import Partners from "./pages/admin/Partners.jsx";
+import AdminCareers from "./pages/admin/Careers.jsx";
+import Applications from "./pages/admin/Applications.jsx";
 import Templates from "./pages/admin/Templates.jsx";
 import SiteSettings from "./pages/admin/SiteSettings.jsx";
 import Messages from "./pages/admin/Messages.jsx";
@@ -39,6 +42,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/:slug" element={<CareerDetail />} />
         <Route path="/contact" element={<Contact />} />
       </Route>
 
@@ -63,6 +67,8 @@ export default function App() {
         <Route path="industries" element={<Industries />} />
         <Route path="technologies" element={<Technologies />} />
         <Route path="partners" element={<Partners />} />
+        <Route path="careers" element={<AdminCareers />} />
+        <Route path="applications" element={<Applications />} />
         <Route path="templates" element={<Templates />} />
         <Route path="settings" element={<SiteSettings />} />
         <Route path="messages" element={<Messages />} />

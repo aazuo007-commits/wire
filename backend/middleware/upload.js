@@ -36,6 +36,24 @@ const resourceTypeFor = (mimetype) => {
   return "raw"; // pdf, doc, docx, etc.
 };
 
+const RESUME_MIME = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+
+const resumeFileFilter = (req, file, cb) => {
+  if (RESUME_MIME.includes(file.mimetype)) return cb(null, true);
+  cb(new Error("Resume must be a PDF or DOC/DOCX file."));
+};
+
+// Separate multer instance for job application resumes: PDF/DOC/DOCX only, smaller size cap.
+export const uploadResume = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: resumeFileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+});
+
 /**
  * Uploads a buffer (from multer memoryStorage) to Cloudinary.
  * Returns { url, resourceType, format, originalName }.

@@ -11,6 +11,8 @@ const navItems = [
   { to: "/admin/industries", label: "Industries" },
   { to: "/admin/technologies", label: "Technology" },
   { to: "/admin/partners", label: "Partners" },
+  { to: "/admin/careers", label: "Careers" },
+  { to: "/admin/applications", label: "Applications" },
   { to: "/admin/templates", label: "Templates" },
   { to: "/admin/settings", label: "Settings" },
   { to: "/admin/messages", label: "Messages" },
