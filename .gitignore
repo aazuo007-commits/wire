@@ -1,0 +1,30 @@
+node_modules/
+.env
+# Dependency folders
+node_modules/
+
+# Environment files
+.env
+.env.*
+# Dependencies
+node_modules/
+# Images (if you don't want to track them)
+image/
+
+# Version folders
+v*/
+[0-9]*/
+
+# Archive files
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
+*.xz
+*.tgz
+
+# Numbered folders
+1/
+2/

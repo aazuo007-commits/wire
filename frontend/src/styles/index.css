@@ -68,11 +68,24 @@ img { max-width: 100%; display: block; }
 .btn-danger { background: #dc2626; }
 
 /* Navbar */
+/* Top strip (above the Navbar): dynamic contact info + social icons */
+.top-strip { background: var(--navy); color: #cbd5e1; font-size: 13px; }
+.top-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; flex-wrap: wrap; gap: 8px; }
+.top-strip-contact { display: flex; gap: 20px; flex-wrap: wrap; }
+.top-strip-contact a { color: #cbd5e1; }
+.top-strip-contact a:hover { color: #fff; }
+.top-strip-social { display: flex; gap: 8px; }
+.top-strip-social a {
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #cbd5e1;
+}
+.top-strip-social a:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+
 .navbar { position: sticky; top: 0; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.06); z-index: 50; }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 78px; }
 .brand img { height: 42px; }
 .brand-text { font-family: "Poppins", sans-serif; font-weight: 800; font-size: 24px; color: var(--navy); }
-.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links { display: flex; align-items: center; gap: 14px; }
 .nav-link { font-weight: 500; color: var(--navy); padding: 8px 0; border-bottom: 2px solid transparent; line-height: 1.4; display: inline-flex; align-items: center; }
 .nav-link.active, .nav-link:hover { color: var(--primary); border-color: var(--primary); }
 
@@ -85,6 +98,20 @@ img { max-width: 100%; display: block; }
   padding: 4px; line-height: 1; display: inline-flex; align-items: center;
 }
 .nav-caret-btn:hover { color: var(--primary); }
+
+/* Search icon in the nav (after Contact) */
+.nav-search { position: relative; display: flex; align-items: center; }
+.nav-search-btn {
+  background: none; border: none; cursor: pointer; font-size: 16px; padding: 6px; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav-search-panel {
+  position: absolute; top: 100%; right: 0; margin-top: 8px; background: #fff; border-radius: 10px;
+  box-shadow: var(--shadow); padding: 14px; width: 320px; z-index: 70;
+}
+@media (max-width: 860px) {
+  .nav-search-panel { position: static; box-shadow: none; width: auto; margin-top: 10px; padding: 0; }
+}
 
 /* Mega menu dropdown panel (Services, Topics, and every dynamic Parent Menu) */
 .mega-menu {

@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import api from "../api/axios.js";
 import NavMegaMenu from "./NavMegaMenu.jsx";
+import SearchBar from "./SearchBar.jsx";
 
 const staticLinks = [
   { to: "/", label: "Home" },
@@ -26,6 +27,18 @@ export default function Navbar() {
 
   // A single "which dropdown is open" id covers Services and every dynamic parent menu.
   const [openMenuId, setOpenMenuId] = useState(null);
+
+  // Search icon in the nav (after Contact) toggles a small site-wide search panel.
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const onClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) setSearchOpen(false);
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
 
   useEffect(() => {
     api
@@ -68,6 +81,7 @@ export default function Navbar() {
   const closeAll = () => {
     setOpen(false);
     setOpenMenuId(null);
+    setSearchOpen(false);
   };
 
   const servicesItems = services.map((s) => ({ key: s._id, label: s.title, to: `/services/${s.slug}` }));
@@ -165,6 +179,23 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
+
+          {/* Site-wide search icon, placed after Contact */}
+          <div className="nav-search" ref={searchRef}>
+            <button
+              type="button"
+              className="nav-search-btn"
+              aria-label="Search the site"
+              onClick={() => setSearchOpen((o) => !o)}
+            >
+              🔍
+            </button>
+            {searchOpen && (
+              <div className="nav-search-panel">
+                <SearchBar placeholder="Search the entire site..." />
+              </div>
+            )}
+          </div>
         </nav>
 
         <button className="burger" onClick={() => setOpen((o) => !o)} aria-label="Toggle menu">
