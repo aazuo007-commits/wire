@@ -3,10 +3,24 @@
 Full-stack IT company website: **React + Vite** frontend, **Node.js + Express** backend,
 **MongoDB** database, with a superadmin dashboard to manage all site content.
 
+> **Deploying to Render (or any host where frontend/backend are separate services)?**
+> Read section 14 first. The frontend's API calls need `VITE_API_URL` set at build time, or
+> they'll silently fail against your own frontend host instead of the backend — see section 14
+> for the full explanation and step-by-step Render setup. This build also now defends every
+> list with a `[] ` fallback, so a misconfigured API URL shows empty sections instead of a
+> crashed page — but `VITE_API_URL` is still the actual fix.
+
 Pages: Home · About Us · Services · Project · Blog · Careers · Contact
 Admin CRUD: Logo · Hero Slider (Banners) · Services · Projects · Expertise · Industries · Technology · Partners · Careers · Blogs · Blog Categories · Topics · Parent Menus · Submenu Items · Legal/Policy Pages
 
 Latest updates:
+- **Fixed a production crash** (`Cannot read properties of undefined (reading 'length')`) caused by
+  API responses not being in the expected shape on some deployments — every list-consuming
+  component now falls back to `[]` instead of crashing (see section 14 for the actual root cause
+  and fix).
+- **Removed the search box from the header nav dropdowns** (Services/Expertise/Industries/
+  Technology mega-menus) — they now just show the full list of items, no filter box. The
+  "Browse All" sidebar search on detail pages is unaffected and still there.
 - **Homepage Hero Slider**: the existing Banners module now powers a real slider on Home —
   auto-rotates every ~4.5s, smooth fade transitions, manual prev/next arrows, and pagination dots.
 - **Technology Management enhanced**: technologies now have a slug, banner image, short/full
@@ -665,19 +679,65 @@ type, title, short description, and link. Results appear in a live dropdown as y
 
 ---
 
-## 14. Production build
+## 14. Production build & deploying to Render
+
+### The #1 cause of a blank/crashed page after deploying
+
+If the deployed site shows a blank page or a console error like
+`TypeError: Cannot read properties of undefined (reading 'length')`, it's almost always this:
+
+**`/api` only works locally.** In development, `vite.config.js` proxies any request to `/api`
+over to `http://localhost:5000` automatically. That proxy **does not exist** once you build the
+frontend and deploy it — if the frontend and backend are two separate services (which is how
+Render normally works: one Web Service for the API, one Static Site for the frontend), a request
+to `/api/banners` from the deployed frontend hits the *frontend's own host*, not the backend, and
+gets back the frontend's `index.html` instead of JSON. The app then tries to read `.length` off
+of what it thinks is a list but is actually undefined, and crashes.
+
+**The fix:** set `VITE_API_URL` at build time to your deployed backend's URL (see below). This
+project also now defends against this defensively (every list falls back to `[]` if the API
+response isn't shaped as expected), so a bad API response will show empty sections instead of
+crashing the whole page — but the real fix is still pointing the frontend at the right backend URL.
+
+### Deploying as two Render services (recommended)
+
+**1. Backend — Render "Web Service"**
+- Root directory: `backend`
+- Build command: `npm install`
+- Start command: `npm start`
+- Environment variables (Render → your service → Environment): everything from
+  `backend/.env.example` — `MONGO_URI` (use MongoDB Atlas, not a local Mongo), `JWT_SECRET`,
+  `JWT_EXPIRES_IN`, `SUPERADMIN_*`, `CLOUDINARY_*`, and `CLIENT_URL` set to your **frontend's**
+  Render URL (e.g. `https://wirecto.onrender.com`) — this is what CORS uses to allow the request.
+- After the first deploy, run the seed script once via Render's Shell tab: `npm run seed`
+
+**2. Frontend — Render "Static Site"**
+- Root directory: `frontend`
+- Build command: `npm install && npm run build`
+- Publish directory: `dist`
+- Environment variable: `VITE_API_URL` set to your **backend's** Render URL plus `/api`
+  (e.g. `https://wirecto-backend.onrender.com/api`) — this is read at *build time*, so if you
+  change it, trigger a new deploy/build, not just a restart.
+- Add a rewrite rule so client-side routes (like `/services/web-design-development`) don't 404 on
+  refresh: in the Static Site's Redirects/Rewrites settings, add `/*` → `/index.html` (rewrite, not
+  redirect).
+
+### Local production build
 
 ```bash
 cd frontend
 npm run build      # outputs to frontend/dist
 ```
 
-Serve `frontend/dist` with any static host (Nginx, Vercel, Netlify, etc.) and
-point it at your deployed backend URL, or serve the backend's `/uploads` and
-API from the same origin as the frontend build with a reverse proxy.
+Serve `frontend/dist` with any static host (Nginx, Vercel, Netlify, Render, etc.), with
+`VITE_API_URL` set at build time to your deployed backend's URL.
 
-Remember to:
+### Checklist
+
 - Set a strong, unique `JWT_SECRET` in production
 - Change the seeded superadmin password after first login
-- Point `MONGO_URI` at your production database
-- Set `CLIENT_URL` to your deployed frontend origin (used for CORS)
+- Point `MONGO_URI` at your production database (MongoDB Atlas for Render)
+- Set `CLIENT_URL` (backend) to your deployed frontend's exact origin (used for CORS)
+- Set `VITE_API_URL` (frontend) to your deployed backend's URL + `/api`, and rebuild after
+  changing it
+- Add the SPA rewrite rule (`/*` → `/index.html`) on whichever static host you use

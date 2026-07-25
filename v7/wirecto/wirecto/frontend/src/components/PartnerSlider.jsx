@@ -3,7 +3,7 @@
  * left with a CSS keyframe (translateX 0 -> -50%), which creates a seamless
  * infinite loop. Hovering pauses the animation (see .partner-track:hover in CSS).
  */
-export default function PartnerSlider({ partners, speedSeconds = 30 }) {
+export default function PartnerSlider({ partners = [], speedSeconds = 30 }) {
   if (!partners.length) return null;
 
   const doubled = [...partners, ...partners];

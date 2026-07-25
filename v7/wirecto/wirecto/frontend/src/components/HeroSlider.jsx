@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const AUTO_ROTATE_MS = 4500; // within the requested 3-5s range
 
-export default function HeroSlider({ slides }) {
+export default function HeroSlider({ slides = [] }) {
   const [index, setIndex] = useState(0);
 
   const goTo = useCallback((i) => {

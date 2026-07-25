@@ -30,14 +30,14 @@ export default function Blogs() {
     setLoading(true);
     api
       .get("/blogs?all=true")
-      .then((res) => setBlogs(res.data.data))
+      .then((res) => setBlogs(res.data.data || []))
       .catch(() => setError("Failed to load blogs"))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     loadBlogs();
-    api.get("/blog-categories?all=true").then((res) => setCategories(res.data.data)).catch(() => {});
+    api.get("/blog-categories?all=true").then((res) => setCategories(res.data.data || [])).catch(() => {});
   }, []);
 
   const resetForm = () => {

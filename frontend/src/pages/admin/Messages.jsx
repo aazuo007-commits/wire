@@ -7,7 +7,7 @@ export default function Messages() {
 
   const load = () => {
     setLoading(true);
-    api.get("/contact").then((r) => setMessages(r.data.data)).finally(() => setLoading(false));
+    api.get("/contact").then((r) => setMessages(r.data.data || [])).finally(() => setLoading(false));
   };
 
   useEffect(load, []);

@@ -6,7 +6,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    api.get("/projects").then((r) => setProjects(r.data.data)).catch(() => {});
+    api.get("/projects").then((r) => setProjects(r.data.data || [])).catch(() => {});
   }, []);
 
   return (

@@ -6,7 +6,7 @@ export default function Services() {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    api.get("/services").then((r) => setServices(r.data.data)).catch(() => {});
+    api.get("/services").then((r) => setServices(r.data.data || [])).catch(() => {});
   }, []);
 
   return (

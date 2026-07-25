@@ -28,7 +28,7 @@ export default function ResourceManager({ resource, title, fields, emptyItem, co
     setLoading(true);
     api
       .get(`/${resource}?all=true`)
-      .then((res) => setItems(res.data.data))
+      .then((res) => setItems(res.data.data || []))
       .catch(() => setError("Failed to load data"))
       .finally(() => setLoading(false));
   };

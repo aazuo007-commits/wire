@@ -6,8 +6,8 @@ export default function About() {
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
-    api.get("/industries").then((r) => setIndustries(r.data.data)).catch(() => {});
-    api.get("/partners").then((r) => setPartners(r.data.data)).catch(() => {});
+    api.get("/industries").then((r) => setIndustries(r.data.data || [])).catch(() => {});
+    api.get("/partners").then((r) => setPartners(r.data.data || [])).catch(() => {});
   }, []);
 
   return (

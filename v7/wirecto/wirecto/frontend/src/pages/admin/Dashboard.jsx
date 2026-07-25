@@ -25,13 +25,13 @@ export default function Dashboard() {
     resources.forEach((r) => {
       api
         .get(`/${r.key}?all=true`)
-        .then((res) => setCounts((c) => ({ ...c, [r.key]: res.data.data.length })))
+        .then((res) => setCounts((c) => ({ ...c, [r.key]: (res.data.data || []).length })))
         .catch(() => setCounts((c) => ({ ...c, [r.key]: "-" })));
     });
 
     api
       .get("/applications")
-      .then((res) => setCounts((c) => ({ ...c, applications: res.data.data.length })))
+      .then((res) => setCounts((c) => ({ ...c, applications: (res.data.data || []).length })))
       .catch(() => setCounts((c) => ({ ...c, applications: "-" })));
   }, []);
 

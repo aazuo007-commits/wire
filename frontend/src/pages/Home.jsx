@@ -20,12 +20,12 @@ export default function Home() {
   const [partnerSliderSpeed, setPartnerSliderSpeed] = useState(30);
 
   useEffect(() => {
-    api.get("/banners").then((r) => setBanners(r.data.data)).catch(() => {});
-    api.get("/services").then((r) => setServices(r.data.data)).catch(() => {});
-    api.get("/projects").then((r) => setProjects(r.data.data)).catch(() => {});
-    api.get("/expertise").then((r) => setExpertise(r.data.data)).catch(() => {});
-    api.get("/blogs").then((r) => setBlogs(r.data.data)).catch(() => {});
-    api.get("/partners").then((r) => setPartners(r.data.data)).catch(() => {});
+    api.get("/banners").then((r) => setBanners(r.data.data || [])).catch(() => {});
+    api.get("/services").then((r) => setServices(r.data.data || [])).catch(() => {});
+    api.get("/projects").then((r) => setProjects(r.data.data || [])).catch(() => {});
+    api.get("/expertise").then((r) => setExpertise(r.data.data || [])).catch(() => {});
+    api.get("/blogs").then((r) => setBlogs(r.data.data || [])).catch(() => {});
+    api.get("/partners").then((r) => setPartners(r.data.data || [])).catch(() => {});
 
     // Admin-configurable: how many services/blogs/topics/technologies show on the homepage
     api
