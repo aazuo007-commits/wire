@@ -9,7 +9,12 @@ import { Link } from "react-router-dom";
  * props.open: boolean
  * props.onNavigate: called after a link is clicked (closes the menu)
  */
-export default function NavMegaMenu({ items, open, onNavigate }) {
+// export default function NavMegaMenu({ items, open, onNavigate }) {
+export default function NavMegaMenu({
+    items = [],
+    open,
+    onNavigate,
+  }) {
   const [query, setQuery] = useState("");
 
   // Reset the search box whenever the menu closes, so it's fresh next time it opens.
