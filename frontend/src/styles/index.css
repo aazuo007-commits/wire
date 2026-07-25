@@ -70,13 +70,13 @@ img { max-width: 100%; display: block; }
 /* Navbar */
 /* Top strip (above the Navbar): dynamic contact info + social icons */
 .top-strip { background: var(--navy); color: #cbd5e1; font-size: 13px; }
-.top-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; flex-wrap: wrap; gap: 8px; }
-.top-strip-contact { display: flex; gap: 20px; flex-wrap: wrap; }
+.top-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 8px 25px; flex-wrap: wrap; gap: 8px; }
+.top-strip-contact { display: flex; gap: 15px; flex-wrap: wrap; }
 .top-strip-contact a { color: #cbd5e1; }
 .top-strip-contact a:hover { color: #fff; }
 .top-strip-social { display: flex; gap: 8px; }
 .top-strip-social a {
-  width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3);
+  width: 20px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3);
   display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #cbd5e1;
 }
 .top-strip-social a:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
