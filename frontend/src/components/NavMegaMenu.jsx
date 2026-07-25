@@ -22,15 +22,24 @@ export default function NavMegaMenu({
     if (!open) setQuery("");
   }, [open]);
 
-  if (!items.length) return null;
+  // if (!items.length) return null;
+  if (!Array.isArray(items) || items.length === 0) return null;
 
+  // const filtered = query.trim()
+  //   ? items.filter((item) => item.label.toLowerCase().includes(query.trim().toLowerCase()))
+  //   : items;
   const filtered = query.trim()
-    ? items.filter((item) => item.label.toLowerCase().includes(query.trim().toLowerCase()))
-    : items;
+  ? items.filter(
+      (item) =>
+        item?.label &&
+        item.label.toLowerCase().includes(query.trim().toLowerCase())
+    )
+  : items;
 
   return (
     <div className={`mega-menu ${open ? "open" : ""}`}>
-      {items.length > 6 && (
+     
+        {items?.length > 6 && (
         <input
           type="text"
           className="mega-menu-search"
