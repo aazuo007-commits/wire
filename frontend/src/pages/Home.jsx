@@ -12,11 +12,11 @@ export default function Home() {
   const [projects, setProjects] = useState([]);
   const [expertise, setExpertise] = useState([]);
   const [blogs, setBlogs] = useState([]);
-  const [topics, setTopics] = useState([]);
+  // const [topics, setTopics] = useState([]);
   const [partners, setPartners] = useState([]);
   const [homeServicesCount, setHomeServicesCount] = useState(6);
   const [homeBlogsCount, setHomeBlogsCount] = useState(3);
-  const [homeTopicsCount, setHomeTopicsCount] = useState(4);
+  // const [homeTopicsCount, setHomeTopicsCount] = useState(4);
   const [partnerSliderSpeed, setPartnerSliderSpeed] = useState(30);
 
   useEffect(() => {
@@ -35,15 +35,15 @@ export default function Home() {
         setHomeServicesCount(d.homeServicesCount || 6);
         setHomeBlogsCount(d.homeBlogsCount || 3);
         setPartnerSliderSpeed(d.partnerSliderSpeed || 30);
-        const topicsLimit = d.homeTopicsCount || 4;
+        // const topicsLimit = d.homeTopicsCount || 4;
         const techLimit = d.homeTechnologiesCount || 8;
-        setHomeTopicsCount(topicsLimit);
+        // setHomeTopicsCount(topicsLimit);
 
         // Topics marked "Show On Homepage" from the admin dashboard automatically show up here.
-        api
-          .get("/topics", { params: { homepage: true, limit: topicsLimit } })
-          .then((res) => setTopics(res.data.data || []))
-          .catch(() => setTopics([]));
+        // api
+        //   .get("/topics", { params: { homepage: true, limit: topicsLimit } })
+        //   .then((res) => setTopics(res.data.data || []))
+        //   .catch(() => setTopics([]));
 
         // Technologies marked "Featured on Home" from the admin dashboard automatically show up here.
         api
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+{/*      <section className="section">
         <div className="container">
           <span className="eyebrow">Explore</span>
           <h2>Topics</h2>
@@ -161,7 +161,7 @@ export default function Home() {
             {!topics.length && <p>Topics will appear here once added and enabled for the homepage from the admin dashboard.</p>}
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <section className="section section-alt">
         <div className="container">
