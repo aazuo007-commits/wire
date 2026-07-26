@@ -6,6 +6,7 @@ const logoSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true, default: "Wirecto" },
     imageUrl: { type: String, required: true },
+    faviconUrl: { type: String, default: "" },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

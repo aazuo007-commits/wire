@@ -341,19 +341,7 @@ img { max-width: 100%; display: block; }
 .admin-login-card input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; }
 
 .admin-shell { display: flex; min-height: 100vh; }
-.admin-sidebar { 
-  width: 240px; 
-  background: var(--navy); 
-  color: #fff; 
-  flex-shrink: 0; 
-  
-  /* --- Added for Vertical Scrolling --- */
-  height: 100vh;          /* Sets the sidebar height to 100% of the viewport */
-  position: sticky;       /* Keeps the sidebar fixed while scrolling main content */
-  top: 0;                 /* Sticks it to the top */
-  overflow-y: auto;       /* Enables vertical scrolling when content overflows */
-}
-/*.admin-sidebar { width: 240px; background: var(--navy); color: #fff; flex-shrink: 0; }*/
+.admin-sidebar { width: 240px; background: var(--navy); color: #fff; flex-shrink: 0; }
 .admin-sidebar-brand { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 20px; padding: 24px; }
 .admin-nav-link { display: block; padding: 12px 24px; color: #cbd5e1; font-weight: 500; }
 .admin-nav-link.active, .admin-nav-link:hover { background: rgba(255,255,255,0.08); color: #fff; }

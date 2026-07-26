@@ -70,13 +70,13 @@ img { max-width: 100%; display: block; }
 /* Navbar */
 /* Top strip (above the Navbar): dynamic contact info + social icons */
 .top-strip { background: var(--navy); color: #cbd5e1; font-size: 13px; }
-.top-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 8px 25px; flex-wrap: wrap; gap: 8px; }
-.top-strip-contact { display: flex; gap: 15px; flex-wrap: wrap; }
+.top-strip-inner { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; flex-wrap: wrap; gap: 8px; }
+.top-strip-contact { display: flex; gap: 20px; flex-wrap: wrap; }
 .top-strip-contact a { color: #cbd5e1; }
 .top-strip-contact a:hover { color: #fff; }
 .top-strip-social { display: flex; gap: 8px; }
 .top-strip-social a {
-  width: 20px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3);
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3);
   display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #cbd5e1;
 }
 .top-strip-social a:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
@@ -85,7 +85,7 @@ img { max-width: 100%; display: block; }
 .navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 78px; }
 .brand img { height: 42px; }
 .brand-text { font-family: "Poppins", sans-serif; font-weight: 800; font-size: 24px; color: var(--navy); }
-.nav-links { display: flex; align-items: center; gap: 14px; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
 .nav-link { font-weight: 500; color: var(--navy); padding: 8px 0; border-bottom: 2px solid transparent; line-height: 1.4; display: inline-flex; align-items: center; }
 .nav-link.active, .nav-link:hover { color: var(--primary); border-color: var(--primary); }
 
@@ -277,7 +277,7 @@ img { max-width: 100%; display: block; }
 .footer-brand { color: #fff; }
 .footer-logo { height: 40px; margin-bottom: 14px; filter: brightness(0) invert(1); }
 .footer h4 { color: #fff; font-size: 16px; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr repeat(auto-fit, minmax(140px, 1fr)); gap: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 30px; }
 .footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .footer a { color: #cbd5e1; }
 .footer a:hover { color: var(--primary); }
@@ -294,6 +294,9 @@ img { max-width: 100%; display: block; }
 }
 .footer-policy-links { display: flex; flex-wrap: wrap; gap: 18px; }
 .footer-policy-links a { font-size: 13px; }
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 860px) {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom-inner { flex-direction: column; text-align: center; }
@@ -341,19 +344,7 @@ img { max-width: 100%; display: block; }
 .admin-login-card input { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; }
 
 .admin-shell { display: flex; min-height: 100vh; }
-.admin-sidebar { 
-  width: 240px; 
-  background: var(--navy); 
-  color: #fff; 
-  flex-shrink: 0; 
-  
-  /* --- Added for Vertical Scrolling --- */
-  height: 100vh;          /* Sets the sidebar height to 100% of the viewport */
-  position: sticky;       /* Keeps the sidebar fixed while scrolling main content */
-  top: 0;                 /* Sticks it to the top */
-  overflow-y: auto;       /* Enables vertical scrolling when content overflows */
-}
-/*.admin-sidebar { width: 240px; background: var(--navy); color: #fff; flex-shrink: 0; }*/
+.admin-sidebar { width: 240px; background: var(--navy); color: #fff; flex-shrink: 0; }
 .admin-sidebar-brand { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 20px; padding: 24px; }
 .admin-nav-link { display: block; padding: 12px 24px; color: #cbd5e1; font-weight: 500; }
 .admin-nav-link.active, .admin-nav-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
@@ -465,6 +456,15 @@ img { max-width: 100%; display: block; }
 /* Technology: homepage card + detail page */
 .tech-home-card { text-align: center; }
 .tech-home-card img { height: 56px; width: auto; margin: 0 auto 14px; object-fit: contain; }
+
+/* Testimonials (homepage) */
+.testimonial-card { display: flex; flex-direction: column; }
+.testimonial-rating { color: #f5a623; font-size: 16px; margin-bottom: 12px; letter-spacing: 2px; }
+.testimonial-message { color: var(--text); font-style: italic; flex: 1; margin-bottom: 20px; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-author img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.testimonial-author h4 { margin-bottom: 2px; font-size: 15px; }
+.testimonial-author p { margin: 0; font-size: 13px; }
 .btn-sm-block { display: inline-block; margin-top: 10px; padding: 8px 20px; font-size: 14px; }
 
 .tech-detail-container { max-width: 820px; }

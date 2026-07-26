@@ -1,0 +1,99 @@
+Here's a practical, step-by-step guide for merging your React template into this project. It's written so you can follow it once you have the template unzipped locally (or here, once uploaded).
+
+## Step 0 — Two folders, side by side
+
+Don't edit the template into the existing project immediately. Work with both open:
+- `wirecto/frontend/` (existing, API-wired)
+- `new-template/` (your template, wherever you unzip it)
+
+You're moving pieces **from** the template **into** `wirecto/frontend/`, not the other way around — because `wirecto/frontend/` already has the routing, auth, and API plumbing correctly wired to the backend.
+
+## Step 1 — Carry over the parts that must not change
+
+These already work and talk to your backend — copy them into the template's mental model, don't touch their logic:
+- `src/api/axios.js` — the configured axios instance (baseURL from `VITE_API_URL`)
+- `src/context/AuthContext.jsx`, `src/components/ProtectedRoute.jsx` — admin login state (keep, since admin stays as-is)
+- `.env` / `.env.example` — your `VITE_API_URL` setup
+- `vite.config.js`'s dev proxy block
+
+## Step 2 — Merge `package.json`
+
+Take the existing `dependencies` (`axios`, `react-router-dom`, `react-quill`) and merge them with the template's own dependencies (its UI kit, animation library, icon set, etc.). Run `npm install` once merged. Watch for version conflicts on `react`/`react-dom`/`react-router-dom` — keep the higher compatible versions.
+
+## Step 3 — Map template pages to real routes
+
+Go through the template's pages one by one and match each to the route it needs to become. This is the actual "integration" work — for each page:
+
+| Route | What the page needs to fetch |
+|---|---|
+| `/` | banners, services, technologies (featured), projects, expertise, blogs, topics, partners, testimonials, settings (counts) |
+| `/services`, `/services/:slug` | `GET /api/services`, `GET /api/services/slug/:slug` |
+| `/projects`, `/projects/:slug` | `GET /api/projects`, `GET /api/projects/slug/:slug` (+ `related`) |
+| `/blog`, `/blog/:slug` | `GET /api/blogs`, `GET /api/blogs/slug/:slug` |
+| `/careers`, `/careers/:slug` | `GET /api/careers`, `GET /api/careers/slug/:slug`, apply form → `POST /api/careers/:id/apply` (multipart) |
+| `/topics`, `/topics/:slug` | `GET /api/topics`, `GET /api/topics/slug/:slug` |
+| `/technologies/:slug` | `GET /api/technologies/slug/:slug` |
+| `/:parentSlug`, `/:parentSlug/:submenuSlug` | `GET /api/parent-menus/slug/:slug`, `GET /api/submenu-items/lookup/:parentSlug/:submenuSlug` |
+| `/legal/:slug` | `GET /api/policies/slug/:slug` |
+| `/contact` | `POST /api/contact` |
+
+Every response is shaped `{ success: true, data: ... }` — that's the one thing to remember everywhere.
+
+## Step 4 — Take the template's markup, drop in real data
+
+For each template page component, the pattern is always the same 3-line change:
+
+```jsx
+// Template probably has this (hardcoded/dummy):
+const services = [{ title: "Web Design", desc: "..." }, ...];
+
+// Change to:
+import { useEffect, useState } from "react";
+import api from "../api/axios.js";
+
+const [services, setServices] = useState([]);
+useEffect(() => {
+  api.get("/services").then((r) => setServices(r.data.data || [])).catch(() => {});
+}, []);
+```
+
+Then leave the template's JSX/markup/CSS classes exactly as they are — just point `.map()` at the real array and swap field names (`service.title`, `service.shortDescription`, `service.slug` → link to `/services/${service.slug}`).
+
+## Step 5 — Detail pages need the slug from the URL
+
+```jsx
+import { useParams } from "react-router-dom";
+const { slug } = useParams();
+useEffect(() => {
+  api.get(`/services/slug/${slug}`).then((r) => setService(r.data.data)).catch(() => setNotFound(true));
+}, [slug]);
+```
+
+## Step 6 — Nav & Footer: decide static vs. dynamic
+
+The existing template's Navbar/Footer are almost certainly static HTML. Decide:
+- **Keep them static** (fastest) — just hardcode your real links/logo/social icons once.
+- **Keep them dynamic** (matches current site) — copy the fetch logic from the existing `Navbar.jsx`/`Footer.jsx`/`TopStrip.jsx` (logo, parent menus, topics, settings) into the template's nav/footer markup.
+
+## Step 7 — Forms need real submit handlers
+
+Contact form, career apply form, inquiry forms — the template's forms probably just have a fake `onSubmit`. Replace with the real `api.post(...)` calls (see `Contact.jsx` and `CareerDetail.jsx` in the current code for the exact multipart pattern for file uploads).
+
+## Step 8 — Rich text content
+
+Anywhere the template shows a "description" as plain text, but the API returns HTML (Services, Blogs, Topics, Technologies, Submenu Items all store rich text), render it with:
+```jsx
+<div dangerouslySetInnerHTML={{ __html: item.description }} />
+```
+
+## Step 9 — Test route-by-route, not all at once
+
+Wire one page fully (e.g. Home), run it, confirm data loads, *then* move to the next. Trying to wire everything before testing anything makes bugs much harder to isolate.
+
+## Step 10 — Leave `/admin/*` alone
+
+Don't touch the `/admin` route tree at all — keep `AdminLayout`, every admin page, and `ProtectedRoute` exactly as they are. Only the public route tree changes.
+
+---
+
+Whenever you're ready, upload the template and I'll do this mapping concretely — tell me which of its pages already exist vs. need to be adapted, and I'll wire each one to the right endpoint directly.

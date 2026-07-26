@@ -64,6 +64,7 @@ export default function ResourceManager({ resource, title, fields, emptyItem, co
   const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    console.log("Form Data:", form); // <-- Add this line
     try {
       if (editingId) {
         await api.put(`/${resource}/${editingId}`, form);

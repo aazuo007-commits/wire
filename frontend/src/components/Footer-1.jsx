@@ -18,7 +18,6 @@ export default function Footer() {
   const [settings, setSettings] = useState(null);
   const [popularLinks, setPopularLinks] = useState([]); // merged Topics(footer) + ParentMenu(footer) items
   const [policies, setPolicies] = useState([]);
-  const [services, setServices] = useState([]);
 
   useEffect(() => {
     // Dynamic logo (admin-managed, same source as the header)
@@ -29,9 +28,6 @@ export default function Footer() {
 
     // Policy pages (Privacy Policy, Terms & Conditions, etc.) for the bottom links row
     api.get("/policies").then((res) => setPolicies(res.data.data || [])).catch(() => setPolicies([]));
-
-    // A handful of services for the footer's "Our Services" column
-    api.get("/services").then((res) => setServices((res.data.data || []).slice(0, 6))).catch(() => setServices([]));
 
     // "Popular Links" = Topics marked "Show In Footer" + submenu items from any Parent Menu
     // marked "Show In Footer", merged into one flat, capped list.
@@ -89,17 +85,6 @@ export default function Footer() {
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
-
-        {services.length > 0 && (
-          <div>
-            <h4>Our Services</h4>
-            <ul>
-              {services.map((s) => (
-                <li key={s._id}><Link to={`/services/${s.slug}`}>{s.title}</Link></li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {popularLinks.length > 0 && (
           <div>

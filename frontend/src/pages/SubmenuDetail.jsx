@@ -167,7 +167,7 @@ export default function SubmenuDetail() {
             </div>
           )}
 
-          {!!relatedServices.length && (
+{/*          {!!relatedServices.length && (
             <div className="related-topics">
               <h2>Related Services</h2>
               <div className="grid-3">
@@ -179,9 +179,9 @@ export default function SubmenuDetail() {
                 ))}
               </div>
             </div>
-          )}
+          )}*/}
 
-          {!!relatedProjects.length && (
+{/*          {!!relatedProjects.length && (
             <div className="related-topics">
               <h2>Related Projects</h2>
               <div className="grid-3">
@@ -194,9 +194,9 @@ export default function SubmenuDetail() {
                 ))}
               </div>
             </div>
-          )}
+          )}*/}
 
-          {!!relatedBlogs.length && (
+{/*          {!!relatedBlogs.length && (
             <div className="related-topics">
               <h2>Related Blogs</h2>
               <div className="grid-3">
@@ -208,9 +208,9 @@ export default function SubmenuDetail() {
                 ))}
               </div>
             </div>
-          )}
+          )}*/}
 
-          {!!relatedTechnologies.length && (
+{/*          {!!relatedTechnologies.length && (
             <div className="related-topics">
               <h2>Related Technologies</h2>
               <div className="tech-strip">
@@ -219,7 +219,7 @@ export default function SubmenuDetail() {
                 ))}
               </div>
             </div>
-          )}
+          )}*/}
 
           <div className="inquiry-cta">
             <h2>Have A Project In Mind?</h2>

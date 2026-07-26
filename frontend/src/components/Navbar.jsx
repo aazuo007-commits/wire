@@ -41,10 +41,29 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    // api
+    //   .get("/logos")
+    //   .then((res) => setLogo(res.data.data?.[0] || null))
+    //   .catch(() => setLogo(null));
     api
-      .get("/logos")
-      .then((res) => setLogo(res.data.data?.[0] || null))
-      .catch(() => setLogo(null));
+  .get("/logos")
+  .then((res) => {
+    const activeLogo = res.data.data?.[0] || null;
+    setLogo(activeLogo);
+
+    if (activeLogo?.faviconUrl) {
+      let favicon = document.querySelector("link[rel='icon']");
+
+      if (!favicon) {
+        favicon = document.createElement("link");
+        favicon.rel = "icon";
+        document.head.appendChild(favicon);
+      }
+
+      favicon.href = activeLogo.faviconUrl;
+    }
+  })
+  .catch(() => setLogo(null));
 
     // Services added/updated from the admin dashboard automatically show up here.
     api

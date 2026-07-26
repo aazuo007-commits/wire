@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import api from "./api/axios.js";
 
 import PublicLayout from "./components/PublicLayout.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
@@ -45,6 +47,16 @@ import SubmenuItems from "./pages/admin/SubmenuItems.jsx";
 import Policies from "./pages/admin/Policies.jsx";
 
 export default function App() {
+    useEffect(() => {
+    api.get("/logos").then((res) => {
+      const faviconUrl = res.data.data?.[0]?.faviconUrl;
+      if (!faviconUrl) return;
+
+      const link = document.querySelector("link[rel='icon']");
+      if (link) link.href = faviconUrl;
+    });
+  }, []); 
+
   return (
     <Routes>
       {/* Public site */}
