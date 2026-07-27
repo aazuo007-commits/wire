@@ -39,12 +39,6 @@ router.put("/", protect, requireSuperAdmin, async (req, res) => {
     if (req.body.partnerSliderSpeed !== undefined) {
       settings.partnerSliderSpeed = req.body.partnerSliderSpeed;
     }
-    if (req.body.homeTeamCount !== undefined) {
-      settings.homeTeamCount = req.body.homeTeamCount;
-    }
-    if (req.body.homeAdvisoryCount !== undefined) {
-      settings.homeAdvisoryCount = req.body.homeAdvisoryCount;
-    }
     if (req.body.companyTagline !== undefined) {
       settings.companyTagline = req.body.companyTagline;
     }

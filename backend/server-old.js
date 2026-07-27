@@ -25,10 +25,6 @@ import parentMenuRoutes from "./routes/parentMenus.js";
 import submenuItemRoutes from "./routes/submenuItems.js";
 import policyRoutes from "./routes/policies.js";
 import searchRoutes from "./routes/search.js";
-import testimonialRoutes from "./routes/testimonials.js";
-import aboutInfoRoutes from "./routes/aboutInfo.js";
-import advisoryBoardRoutes from "./routes/advisoryBoard.js";
-import teamMemberRoutes from "./routes/teamMembers.js";
 
 dotenv.config();
 connectDB();
@@ -66,10 +62,6 @@ app.use("/api/parent-menus", parentMenuRoutes);
 app.use("/api/submenu-items", submenuItemRoutes);
 app.use("/api/policies", policyRoutes);
 app.use("/api/search", searchRoutes);
-app.use("/api/testimonials", testimonialRoutes);
-app.use("/api/about-info", aboutInfoRoutes);
-app.use("/api/advisory-board", advisoryBoardRoutes);
-app.use("/api/team-members", teamMemberRoutes);
 
 // 404 handler
 app.use((req, res) => res.status(404).json({ success: false, message: "Route not found" }));

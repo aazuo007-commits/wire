@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import api from "./api/axios.js";
 
 import PublicLayout from "./components/PublicLayout.jsx";
 import AdminLayout from "./components/AdminLayout.jsx";
@@ -6,8 +8,6 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
-import AdvisoryBoard from "./pages/AdvisoryBoard.jsx";
-import Team from "./pages/Team.jsx";
 import Services from "./pages/Services.jsx";
 import ServiceDetail from "./pages/ServiceDetail.jsx";
 import Projects from "./pages/Projects.jsx";
@@ -39,10 +39,6 @@ import Applications from "./pages/admin/Applications.jsx";
 import AdminBlogs from "./pages/admin/Blogs.jsx";
 import BlogCategories from "./pages/admin/BlogCategories.jsx";
 import Templates from "./pages/admin/Templates.jsx";
-import Testimonials from "./pages/admin/Testimonials.jsx";
-import AboutInfo from "./pages/admin/AboutInfo.jsx";
-import AdminAdvisoryBoard from "./pages/admin/AdvisoryBoard.jsx";
-import AdminTeamMembers from "./pages/admin/TeamMembers.jsx";
 import SiteSettings from "./pages/admin/SiteSettings.jsx";
 import Messages from "./pages/admin/Messages.jsx";
 import AdminTopics from "./pages/admin/Topics.jsx";
@@ -51,14 +47,22 @@ import SubmenuItems from "./pages/admin/SubmenuItems.jsx";
 import Policies from "./pages/admin/Policies.jsx";
 
 export default function App() {
+    useEffect(() => {
+    api.get("/logos").then((res) => {
+      const faviconUrl = res.data.data?.[0]?.faviconUrl;
+      if (!faviconUrl) return;
+
+      const link = document.querySelector("link[rel='icon']");
+      if (link) link.href = faviconUrl;
+    });
+  }, []); 
+
   return (
     <Routes>
       {/* Public site */}
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/advisory-board" element={<AdvisoryBoard />} />
-        <Route path="/team" element={<Team />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
         <Route path="/projects" element={<Projects />} />
@@ -107,10 +111,6 @@ export default function App() {
         <Route path="blogs" element={<AdminBlogs />} />
         <Route path="blog-categories" element={<BlogCategories />} />
         <Route path="templates" element={<Templates />} />
-        <Route path="testimonials" element={<Testimonials />} />
-        <Route path="about-info" element={<AboutInfo />} />
-        <Route path="advisory-board" element={<AdminAdvisoryBoard />} />
-        <Route path="team-members" element={<AdminTeamMembers />} />
         <Route path="settings" element={<SiteSettings />} />
         <Route path="messages" element={<Messages />} />
         <Route path="topics" element={<AdminTopics />} />

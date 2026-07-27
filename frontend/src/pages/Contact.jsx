@@ -1,9 +1,21 @@
-import { useState } from "react";
+//import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import api from "../api/axios.js";
+
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [status, setStatus] = useState(null);
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    api.get("/settings").then((res) => setSettings(res.data.data)).catch(() => setSettings(null));
+  }, []);
+
+  const email = settings?.contactEmail;
+  const phone = settings?.contactPhone;
+  const address   = settings?.contactAddress;
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -32,9 +44,27 @@ export default function Contact() {
         <div className="container contact-grid">
           <div className="contact-info">
             <h3>Get In Touch</h3>
-            <p>info@wirecto.com</p>
-            <p>+91-00000-00000</p>
-            <p>Noida, Uttar Pradesh, India</p>
+{/*            <p>{email}</p>
+            <p>{phone}</p>
+            <p>{address}</p>*/}
+             {email && (
+                <p className="contact-item">
+                  <Mail size={18} />
+                  <span>{email}</span>
+                </p>
+              )}
+              {phone && (
+                <p className="contact-item">
+                  <Phone size={18} />
+                  <span>{phone}</span>
+                </p>
+              )} 
+                {address && (
+                  <p className="contact-item">
+                    <MapPin size={18} />
+                    <span>{address}</span>
+                  </p>
+                )}
           </div>
 
           <form className="contact-form" onSubmit={onSubmit}>

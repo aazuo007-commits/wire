@@ -6,12 +6,7 @@ import SearchBar from "./SearchBar.jsx";
 
 const staticLinks = [
   { to: "/", label: "Home" },
-];
-
-const aboutItems = [
-  { key: "who-we-are", label: "Who We Are", to: "/about" },
-  { key: "advisory-board", label: "Advisory Board", to: "/advisory-board" },
-  { key: "team-members", label: "Team Members", to: "/team" },
+  { to: "/about", label: "About Us" },
 ];
 
 const tailLinks = [
@@ -46,10 +41,29 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    // api
+    //   .get("/logos")
+    //   .then((res) => setLogo(res.data.data?.[0] || null))
+    //   .catch(() => setLogo(null));
     api
-      .get("/logos")
-      .then((res) => setLogo(res.data.data?.[0] || null))
-      .catch(() => setLogo(null));
+  .get("/logos")
+  .then((res) => {
+    const activeLogo = res.data.data?.[0] || null;
+    setLogo(activeLogo);
+
+    if (activeLogo?.faviconUrl) {
+      let favicon = document.querySelector("link[rel='icon']");
+
+      if (!favicon) {
+        favicon = document.createElement("link");
+        favicon.rel = "icon";
+        document.head.appendChild(favicon);
+      }
+
+      favicon.href = activeLogo.faviconUrl;
+    }
+  })
+  .catch(() => setLogo(null));
 
     // Services added/updated from the admin dashboard automatically show up here.
     api
@@ -109,32 +123,6 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
-
-          {/* About Us */}
-          <div
-            className="nav-dropdown"
-            onMouseEnter={() => setOpenMenuId("about")}
-            onMouseLeave={() => setOpenMenuId((id) => (id === "about" ? null : id))}
-          >
-            <span className="nav-link-parent">
-              <NavLink
-                to="/about"
-                className={({ isActive }) => `nav-link nav-link-label ${isActive ? "active" : ""}`}
-                onClick={closeAll}
-              >
-                About Us
-              </NavLink>
-              <button
-                type="button"
-                className="nav-caret-btn"
-                aria-label="Toggle About Us submenu"
-                onClick={() => setOpenMenuId((id) => (id === "about" ? null : "about"))}
-              >
-                ▾
-              </button>
-            </span>
-            <NavMegaMenu items={aboutItems} open={openMenuId === "about"} onNavigate={closeAll} />
-          </div>
 
           {/* Services */}
           <div

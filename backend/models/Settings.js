@@ -10,6 +10,8 @@ const settingsSchema = new mongoose.Schema(
     homeTopicsCount: { type: Number, default: 4, min: 1, max: 24 },
     homeTechnologiesCount: { type: Number, default: 8, min: 1, max: 24 },
     partnerSliderSpeed: { type: Number, default: 30, min: 5, max: 120 }, // seconds per full loop
+    homeTeamCount: { type: Number, default: 4, min: 1, max: 24 },
+    homeAdvisoryCount: { type: Number, default: 4, min: 1, max: 24 },
 
     // Company info shown in the Footer (and available anywhere else on the site)
     companyTagline: { type: String, trim: true, default: "" }, // short punchline / description

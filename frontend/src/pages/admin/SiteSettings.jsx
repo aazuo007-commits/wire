@@ -10,6 +10,8 @@ export default function SiteSettings() {
   const [topicsCount, setTopicsCount] = useState(4);
   const [technologiesCount, setTechnologiesCount] = useState(8);
   const [partnerSpeed, setPartnerSpeed] = useState(30);
+  const [teamCount, setTeamCount] = useState(4);
+  const [advisoryCount, setAdvisoryCount] = useState(4);
 
   const [companyTagline, setCompanyTagline] = useState("");
   const [contactPhone, setContactPhone] = useState("");
@@ -31,6 +33,8 @@ export default function SiteSettings() {
         setTopicsCount(d.homeTopicsCount || 4);
         setTechnologiesCount(d.homeTechnologiesCount || 8);
         setPartnerSpeed(d.partnerSliderSpeed || 30);
+        setTeamCount(d.homeTeamCount || 4);
+        setAdvisoryCount(d.homeAdvisoryCount || 4);
         setCompanyTagline(d.companyTagline || "");
         setContactPhone(d.contactPhone || "");
         setContactEmail(d.contactEmail || "");
@@ -53,6 +57,8 @@ export default function SiteSettings() {
         homeTopicsCount: Number(topicsCount),
         homeTechnologiesCount: Number(technologiesCount),
         partnerSliderSpeed: Number(partnerSpeed),
+        homeTeamCount: Number(teamCount),
+        homeAdvisoryCount: Number(advisoryCount),
         companyTagline,
         contactPhone,
         contactEmail,
@@ -120,6 +126,26 @@ export default function SiteSettings() {
           <div className="admin-form-field">
             <label>Partner Slider Speed (seconds per loop — lower is faster)</label>
             <input type="number" min="5" max="120" value={partnerSpeed} onChange={(e) => setPartnerSpeed(e.target.value)} />
+          </div>
+          <div className="admin-form-field">
+            <label>Number Of Team Members On Home Page</label>
+            <select value={teamCount} onChange={(e) => setTeamCount(e.target.value)}>
+              {PRESETS.map((p) => (<option key={p} value={p}>{p}</option>))}
+            </select>
+          </div>
+          <div className="admin-form-field">
+            <label>Or set a custom team members number</label>
+            <input type="number" min="1" max="24" value={teamCount} onChange={(e) => setTeamCount(e.target.value)} />
+          </div>
+          <div className="admin-form-field">
+            <label>Number Of Advisory Board Members On Home Page</label>
+            <select value={advisoryCount} onChange={(e) => setAdvisoryCount(e.target.value)}>
+              {PRESETS.map((p) => (<option key={p} value={p}>{p}</option>))}
+            </select>
+          </div>
+          <div className="admin-form-field">
+            <label>Or set a custom advisory board number</label>
+            <input type="number" min="1" max="24" value={advisoryCount} onChange={(e) => setAdvisoryCount(e.target.value)} />
           </div>
         </div>
       </form>

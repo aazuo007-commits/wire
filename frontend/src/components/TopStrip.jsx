@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Mail, Phone } from "lucide-react";
 import api from "../api/axios.js";
 
 const SOCIAL_LABELS = {
@@ -27,8 +28,21 @@ export default function TopStrip() {
     <div className="top-strip">
       <div className="container top-strip-inner">
         <div className="top-strip-contact">
-          {email && <a href={`mailto:${email}`}>{email}</a>}
-          {phone && <a href={`tel:${phone.replace(/[^0-9+]/g, "")}`}>{phone}</a>}
+{/*          {email && <a href={`mailto:${email}`}>{email}</a>}
+          {phone && <a href={`tel:${phone.replace(/[^0-9+]/g, "")}`}>{phone}</a>}*/}
+            {email && (
+                <a href={`mailto:${email}`}>
+                  <Mail size={14} />
+                  <span>{email}</span>
+                </a>
+              )}
+
+              {phone && (
+                <a href={`tel:${phone.replace(/[^0-9+]/g, "")}`}>
+                  <Phone size={14} />
+                  <span>{phone}</span>
+                </a>
+              )}
         </div>
         {!!socialEntries.length && (
           <div className="top-strip-social">

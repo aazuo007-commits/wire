@@ -14,15 +14,10 @@ export default function Home() {
   const [blogs, setBlogs] = useState([]);
   // const [topics, setTopics] = useState([]);
   const [partners, setPartners] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
-  // const [teamMembers, setTeamMembers] = useState([]);
-  const [advisoryMembers, setAdvisoryMembers] = useState([]);
   const [homeServicesCount, setHomeServicesCount] = useState(6);
   const [homeBlogsCount, setHomeBlogsCount] = useState(3);
-  const [homeTopicsCount, setHomeTopicsCount] = useState(4);
+  // const [homeTopicsCount, setHomeTopicsCount] = useState(4);
   const [partnerSliderSpeed, setPartnerSliderSpeed] = useState(30);
-  const [homeTeamCount, setHomeTeamCount] = useState(4);
-  const [homeAdvisoryCount, setHomeAdvisoryCount] = useState(4);
 
   useEffect(() => {
     api.get("/banners").then((r) => setBanners(r.data.data || [])).catch(() => {});
@@ -31,7 +26,6 @@ export default function Home() {
     api.get("/expertise").then((r) => setExpertise(r.data.data || [])).catch(() => {});
     api.get("/blogs").then((r) => setBlogs(r.data.data || [])).catch(() => {});
     api.get("/partners").then((r) => setPartners(r.data.data || [])).catch(() => {});
-    api.get("/testimonials").then((r) => setTestimonials(r.data.data || [])).catch(() => {});
 
     // Admin-configurable: how many services/blogs/topics/technologies show on the homepage
     api
@@ -41,30 +35,15 @@ export default function Home() {
         setHomeServicesCount(d.homeServicesCount || 6);
         setHomeBlogsCount(d.homeBlogsCount || 3);
         setPartnerSliderSpeed(d.partnerSliderSpeed || 30);
-        const topicsLimit = d.homeTopicsCount || 4;
+        // const topicsLimit = d.homeTopicsCount || 4;
         const techLimit = d.homeTechnologiesCount || 8;
-        const teamLimit = d.homeTeamCount || 4;
-        const advisoryLimit = d.homeAdvisoryCount || 4;
         // setHomeTopicsCount(topicsLimit);
-        // setHomeTeamCount(teamLimit);
-        setHomeAdvisoryCount(advisoryLimit);
-
-        // Team/Advisory members marked "Show On Homepage" from the admin dashboard automatically show up here.
-        // api
-        //   .get("/team-members", { params: { homepage: true, limit: teamLimit } })
-        //   .then((res) => setTeamMembers(res.data.data || []))
-        //   .catch(() => setTeamMembers([]));
-
-        api
-          .get("/advisory-board", { params: { homepage: true, limit: advisoryLimit } })
-          .then((res) => setAdvisoryMembers(res.data.data || []))
-          .catch(() => setAdvisoryMembers([]));
 
         // Topics marked "Show On Homepage" from the admin dashboard automatically show up here.
-        api
-          .get("/topics", { params: { homepage: true, limit: topicsLimit } })
-          .then((res) => setTopics(res.data.data || []))
-          .catch(() => setTopics([]));
+        // api
+        //   .get("/topics", { params: { homepage: true, limit: topicsLimit } })
+        //   .then((res) => setTopics(res.data.data || []))
+        //   .catch(() => setTopics([]));
 
         // Technologies marked "Featured on Home" from the admin dashboard automatically show up here.
         api
@@ -185,65 +164,6 @@ export default function Home() {
       </section>*/}
 
       <section className="section section-alt">
-        <div className="container">
-          <span className="eyebrow">Client Love</span>
-          <h2>What Our Clients Say</h2>
-          <div className="grid-3">
-            {testimonials.map((t) => (
-              <div className="card testimonial-card" key={t._id}>
-                {t.rating > 0 && (
-                  <div className="testimonial-rating">{"★".repeat(t.rating)}{"☆".repeat(5 - t.rating)}</div>
-                )}
-                <p className="testimonial-message">"{t.message}"</p>
-                <div className="testimonial-author">
-                  {t.photo && <img src={t.photo} alt={t.name} />}
-                  <div>
-                    <h4>{t.name}</h4>
-                    <p>{[t.designation, t.company].filter(Boolean).join(", ")}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {!testimonials.length && <p>Client testimonials will appear here once added from the admin dashboard.</p>}
-          </div>
-        </div>
-      </section>
-
-{/*      <section className="section">
-        <div className="container">
-          <span className="eyebrow">Meet The People</span>
-          <h2>Our Team</h2>
-          <div className="grid-4">
-            {teamMembers.map((m) => (
-              <div className="card member-card" key={m._id}>
-                {m.photo && <img src={m.photo} alt={m.name} className="member-photo" />}
-                <h3>{m.name}</h3>
-                {m.designation && <p className="member-designation">{m.designation}</p>}
-              </div>
-            ))}
-            {!teamMembers.length && <p>Team members will appear here once added and enabled for the homepage from the admin dashboard.</p>}
-          </div>
-        </div>
-      </section>*/}
-
-      <section className="section section-alt">
-        <div className="container">
-          <span className="eyebrow">Leadership</span>
-          <h2>Advisory Board</h2>
-          <div className="grid-3">
-            {advisoryMembers.map((m) => (
-              <div className="card member-card" key={m._id}>
-                {m.photo && <img src={m.photo} alt={m.name} className="member-photo" />}
-                <h3>{m.name}</h3>
-                {m.designation && <p className="member-designation">{m.designation}</p>}
-              </div>
-            ))}
-            {!advisoryMembers.length && <p>Advisory board members will appear here once added and enabled for the homepage from the admin dashboard.</p>}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container">
           <span className="eyebrow">From The Blog</span>
           <h2>Latest Articles & Updates</h2>

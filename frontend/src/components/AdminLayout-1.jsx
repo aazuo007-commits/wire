@@ -3,29 +3,27 @@ import { useAuth } from "../context/AuthContext.jsx";
 
 const navItems = [
   { to: "/admin/dashboard", label: "Dashboard", end: true },
-  { to: "/admin/parent-menus", label: "Parent Menus" },
-  { to: "/admin/submenu-items", label: "Submenu Items" },
-  { to: "/admin/topics", label: "Topics" },
-  { to: "/admin/logo", label: "Logo" },
+
+  // { to: "/admin/topics", label: "Topics" },
   { to: "/admin/banners", label: "Hero Slider" },
   { to: "/admin/services", label: "Services" },
   { to: "/admin/projects", label: "Projects" },
+  { to: "/admin/parent-menus", label: "Parent Menus" },
+  { to: "/admin/submenu-items", label: "Submenu Items" },
+  { to: "/admin/careers", label: "Careers" },
+  { to: "/admin/applications", label: "Applications" },
+  { to: "/admin/messages", label: "Messages" },
+  { to: "/admin/blog-categories", label: "Blog Categories" },
+  { to: "/admin/blogs", label: "Blogs" },
+  { to: "/admin/logo", label: "Logo" },
   { to: "/admin/expertise", label: "Expertise" },
   { to: "/admin/industries", label: "Industries" },
   { to: "/admin/technologies", label: "Technology" },
   { to: "/admin/partners", label: "Partners" },
-  { to: "/admin/testimonials", label: "Testimonials" },
-  { to: "/admin/about-info", label: "About Us Info" },
-  { to: "/admin/advisory-board", label: "Advisory Board" },
-  { to: "/admin/team-members", label: "Team Members" },
-  { to: "/admin/careers", label: "Careers" },
-  { to: "/admin/applications", label: "Applications" },
-  { to: "/admin/blogs", label: "Blogs" },
-  { to: "/admin/blog-categories", label: "Blog Categories" },
   { to: "/admin/templates", label: "Templates" },
   { to: "/admin/settings", label: "Settings" },
   { to: "/admin/policies", label: "Legal / Policies" },
-  { to: "/admin/messages", label: "Messages" },
+ 
 ];
 
 export default function AdminLayout() {
