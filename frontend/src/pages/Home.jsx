@@ -127,7 +127,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+{/*      <section className="section">
         <div className="container">
           <span className="eyebrow">Our Stack</span>
           <h2>Technologies We Work With</h2>
@@ -145,7 +145,7 @@ export default function Home() {
             )}
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <section className="section section-alt">
         <div className="container">
