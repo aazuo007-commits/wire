@@ -12,7 +12,7 @@ const resources = [
   { key: "partners", label: "Partners" },
   { key: "careers", label: "Careers" },
   { key: "blogs", label: "Blogs" },
-  { key: "topics", label: "Topics" },
+  // { key: "topics", label: "Topics" },
   { key: "parent-menus", label: "Parent Menus" },
   { key: "submenu-items", label: "Submenu Items" },
   { key: "policies", label: "Legal / Policies" },
